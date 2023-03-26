@@ -1,0 +1,26 @@
+{
+  "files.associations": {
+    "*.c": "c",
+    "iostm8s003f3.h": "c",
+    "stm8s.h": "c",
+    "stm8s_conf.h": "c",
+    "stm8s_it.h": "c",
+    "stm8s_i2c.h": "c",
+    "i2c_master_interrupt.h": "c",
+    "delay.h": "c",
+    "stm8s_uart1.h": "c",
+    "serial.h": "c",
+    "stm8s_gpio.h": "c",
+    "stm8s_tim1.h": "c",
+    "stm8s_tim2.h": "c",
+    "stm8s_clk.h": "c",
+    "led.h": "c",
+    "modulator-consts.h": "c",
+    "string.h": "c",
+    "timestamp.h": "c",
+    "beep.h": "c",
+    "utils.h": "c",
+    "remote-store.h": "c",
+    "main.h": "c"
+  }
+}

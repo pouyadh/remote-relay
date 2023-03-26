@@ -1,0 +1,82 @@
+{
+  "name": "testProject",
+  "type": "C51",
+  "dependenceList": [],
+  "srcDirs": [
+    "src",
+    "driver",
+    "STD"
+  ],
+  "virtualFolder": {
+    "name": "<virtual_root>",
+    "files": [],
+    "folders": []
+  },
+  "outDir": "build",
+  "deviceName": null,
+  "packDir": null,
+  "miscInfo": {
+    "uid": "dc0ec1d6ee4342730f593c2d543464bc"
+  },
+  "targets": {
+    "Debug": {
+      "excludeList": [
+        "STD/src/stm8s_adc1.c",
+        "STD/src/stm8s_adc2.c",
+        "STD/src/stm8s_awu.c",
+        "STD/src/stm8s_can.c",
+        "STD/src/stm8s_flash.c",
+        "STD/src/stm8s_itc.c",
+        "STD/src/stm8s_iwdg.c",
+        "STD/src/stm8s_rst.c",
+        "STD/src/stm8s_spi.c",
+        "STD/src/stm8s_tim3.c",
+        "STD/src/stm8s_tim5.c",
+        "STD/src/stm8s_tim6.c",
+        "STD/src/stm8s_uart2.c",
+        "STD/src/stm8s_uart3.c",
+        "STD/src/stm8s_uart4.c",
+        "STD/src/stm8s_wwdg.c",
+        "STD/src/stm8s_tim1.c"
+      ],
+      "toolchain": "IAR_STM8",
+      "compileConfig": {
+        "options": "null"
+      },
+      "uploader": "STVP",
+      "uploadConfig": {
+        "deviceName": "STM8S003F3",
+        "bin": "",
+        "eepromFile": "null",
+        "optionByteFile": "null"
+      },
+      "uploadConfigMap": {
+        "Custom": {
+          "bin": "",
+          "commandLine": "",
+          "eraseChipCommand": ""
+        }
+      },
+      "custom_dep": {
+        "name": "default",
+        "incList": [
+          "src",
+          "STD/inc",
+          "driver/beep",
+          "driver/eeprom",
+          "driver/led",
+          "driver/remote",
+          "driver/serial",
+          "driver/timestamp",
+          "driver/utils"
+        ],
+        "libList": [],
+        "sourceDirList": [],
+        "defineList": [
+          "STM8S003"
+        ]
+      }
+    }
+  },
+  "version": "3.3"
+}

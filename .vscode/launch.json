@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "stm8-debug",
+            "request": "launch",
+            "name": "st7",
+            "serverType": "st7",
+            "interface": "stlink3",
+            "cpu": "STM8S003F3",
+            "executable": "build\\Debug\\testProject.out"
+        },
+        {
+            "type": "stm8-debug",
+            "request": "launch",
+            "name": "openocd",
+            "serverType": "stm8-sdcc",
+            "executable": "build\\Debug\\testProject.elf",
+            "openOcdConfigs": [
+                "interface/stlink.cfg",
+                "target/<target-name>.cfg"
+            ]
+        }
+    ]
+}
