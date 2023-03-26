@@ -9,17 +9,23 @@
 #define RELAY1_GPIO_PIN GPIO_PIN_3
 #define RELAY1_PIN 3
 
-#define RELAY2_GPIO GPIOD
-#define RELAY2_GPIO_PIN GPIO_PIN_2
-#define RELAY2_PIN 2
+// #define RELAY2_GPIO GPIOD
+// #define RELAY2_GPIO_PIN GPIO_PIN_2
+// #define RELAY2_PIN 2
 
-#define RELAY3_GPIO GPIOD
-#define RELAY3_GPIO_PIN GPIO_PIN_1
-#define RELAY3_PIN 1
+// #define RELAY3_GPIO GPIOD
+// #define RELAY3_GPIO_PIN GPIO_PIN_1
+// #define RELAY3_PIN 1
 
-#define RELAY4_GPIO GPIOC
-#define RELAY4_GPIO_PIN GPIO_PIN_7
-#define RELAY4_PIN 7
+// #define RELAY4_GPIO GPIOC
+// #define RELAY4_GPIO_PIN GPIO_PIN_7
+// #define RELAY4_PIN 7
+
+#define LIGHT_ON_DURATION 3000
+
+#define LIGHT_GPIO GPIOC
+#define LIGHT_GPIO_PIN GPIO_PIN_6
+#define LIGHT_PIN 6
 
 
 #define pSet(port,pinNum) __BSET((u8 *)&GPIO##port->ODR,pinNum)
@@ -28,6 +34,9 @@
 #define pGet(port,pinNum) (GPIO##port->IDR & (1<<pinNum))
 #define isKeyPushed() !pGet(C,4)
 #define isKeyReleased() pGet(C,4)
+
+#define lightOn() __BSET((u8*)&LIGHT_GPIO->ODR,LIGHT_PIN)
+#define lightOff() __BRES((u8*)&LIGHT_GPIO->ODR,LIGHT_PIN)
 
 
 // void beepOn(u8 div, u8 sel);

@@ -11,5 +11,6 @@ u8 remoteStoreInit();
 u8 remoteStoreAdd(u8 code[3]);
 u8 remoteStoreErase();
 bool remoteStoreHas(u8 code[3]);
+u8 remoteStoreRemove(u8 code[3]);
 
 #endif 

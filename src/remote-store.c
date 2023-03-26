@@ -38,6 +38,24 @@ u8 remoteStoreAdd(u8 code[3]) {
     return 0;
 }
 
+u8 remoteStoreRemove(u8 code[3]) {
+    u8 *rptr;
+    for(rptr=remoteCodes;rptr<=&remoteCodes[REMOTE_STORE_SIZE-1];rptr+=3) {
+        if (
+            rptr[0] == code[0] && 
+            rptr[1] == code[1] && 
+            rptr[2] == code[2]
+        ) {
+            rptr[0] = 0xFF;
+            rptr[1] = 0xFF;
+            rptr[2] = 0xFF;
+            if (eepromWrite(rptr,(u16)(rptr-remoteCodes),3)) return 3;
+            return 0;
+        }
+    }
+    return 1;
+}
+
 u8 remoteStoreErase() {
     u8 *rptr;
     for(rptr=remoteCodes;rptr<=&remoteCodes[REMOTE_STORE_SIZE-1];rptr+=3) {
