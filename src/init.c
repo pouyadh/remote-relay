@@ -32,16 +32,23 @@ void init() {
 
 
 void clkInit(void) {
-    CLK_DeInit();                
-    CLK_HSECmd(DISABLE);
-    CLK_LSICmd(DISABLE);
-    CLK_HSICmd(ENABLE);
-    while(CLK_GetFlagStatus(CLK_FLAG_HSIRDY) == RESET);
-    CLK_ClockSwitchCmd(ENABLE);
-    CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
-    CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
-    CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSI, 
-    DISABLE, CLK_CURRENTCLOCKSTATE_ENABLE);
+    // CLK_DeInit();                
+    // CLK_HSECmd(DISABLE);
+    // CLK_LSICmd(DISABLE);
+    // CLK_HSICmd(ENABLE);
+    // while(CLK_GetFlagStatus(CLK_FLAG_HSIRDY) == RESET);
+    // CLK_ClockSwitchCmd(ENABLE);
+    // CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
+    // CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
+    // CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSI, 
+    // DISABLE, CLK_CURRENTCLOCKSTATE_ENABLE);
+    CLK->CKDIVR = 0;
+    CLK->SWCR |= CLK_SWCR_SWEN;
+    CLK->SWR = 0xB4;
+    while (CLK->SWCR & CLK_SWCR_SWBSY == 0);
+    while (CLK->SWCR & CLK_SWCR_SWIF == 0);
+    CLK->SWCR &= ~CLK_SWCR_SWIF;
+    
 }
 
 void gpioInit() {
