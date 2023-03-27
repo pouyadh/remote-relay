@@ -59,6 +59,7 @@ int main() {
                 if (isRemoteCodeReceived()) {
                     remoteDisable();
                     remoteClearCodeFlag();
+                    remoteCode[2] &= 0xF0;
                     result = remoteStoreAdd((u8*)remoteCode);
                     if (result == 0) {
                         //Success
@@ -102,11 +103,11 @@ int main() {
             tmpType = remoteType;
             //serialSend((u8*)tmpCode,3);
             //serialSendChar(tmpType);
-            //buttons = tmpCode[2] & 0x0F;
-            //tmpCode[2] &= 0xF0;
+            buttons = tmpCode[2] & 0x0F;
+            tmpCode[2] &= 0xF0;
             if (remoteStoreHas((u8*)tmpCode)) {
                 // Exists in memory
-                output ^= 0xFF;
+                output ^= buttons;
                 updateRelays();
                 lightOn();
                 lightOffTimestamp = timestamp + LIGHT_ON_DURATION;
@@ -127,17 +128,17 @@ void updateRelays() {
         GPIO_WriteHigh(RELAY1_GPIO,RELAY1_GPIO_PIN);
     else GPIO_WriteLow(RELAY1_GPIO,RELAY1_GPIO_PIN);
 
-    // if (output & 0x2) 
-    //     GPIO_WriteHigh(RELAY2_GPIO,RELAY2_GPIO_PIN);
-    // else GPIO_WriteLow(RELAY2_GPIO,RELAY2_GPIO_PIN);
+    if (output & 0x2) 
+        GPIO_WriteHigh(RELAY2_GPIO,RELAY2_GPIO_PIN);
+    else GPIO_WriteLow(RELAY2_GPIO,RELAY2_GPIO_PIN);
 
-    // if (output & 0x4) 
-    //     GPIO_WriteHigh(RELAY3_GPIO,RELAY3_GPIO_PIN);
-    // else GPIO_WriteLow(RELAY3_GPIO,RELAY3_GPIO_PIN);
+    if (output & 0x4) 
+        GPIO_WriteHigh(RELAY3_GPIO,RELAY3_GPIO_PIN);
+    else GPIO_WriteLow(RELAY3_GPIO,RELAY3_GPIO_PIN);
 
-    // if (output & 0x8) 
-    //     GPIO_WriteHigh(RELAY4_GPIO,RELAY4_GPIO_PIN);
-    // else GPIO_WriteLow(RELAY4_GPIO,RELAY4_GPIO_PIN);
+    if (output & 0x8) 
+        GPIO_WriteHigh(RELAY4_GPIO,RELAY4_GPIO_PIN);
+    else GPIO_WriteLow(RELAY4_GPIO,RELAY4_GPIO_PIN);
 }
 
 void assert_failed(uint8_t* file, uint32_t line) {}
