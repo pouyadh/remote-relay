@@ -38,12 +38,6 @@
 #define lightOn() __BRES((u8*)&LIGHT_GPIO->ODR,LIGHT_PIN)
 #define lightOff() __BSET((u8*)&LIGHT_GPIO->ODR,LIGHT_PIN)
 
-
-// void beepOn(u8 div, u8 sel);
-// void beepOff();
-// void beepPlay(const u16 *melody,u16 interval);
-// void beepHz(u32 hz);
-
 void updateRelays();
 
 

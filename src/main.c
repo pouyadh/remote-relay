@@ -101,8 +101,7 @@ int main() {
             // Remote Pushed
             memcpy((u8*)tmpCode,(u8 *)remoteCode,3);
             tmpType = remoteType;
-            //serialSend((u8*)tmpCode,3);
-            //serialSendChar(tmpType);
+            
             buttons = tmpCode[2] & 0x0F;
             tmpCode[2] &= 0xF0;
             if (remoteStoreHas((u8*)tmpCode)) {
