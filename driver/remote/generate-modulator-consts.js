@@ -1,7 +1,7 @@
 const _xtal = 16000000;
 const c = {
-  td_min_us: 900,
-  td_max_us: 3200,
+  td_min_us: 400,
+  td_max_us: 4000,
   tp2ph_rate_min: 20,
   tp2ph_rate_max: 40,
   get tp_max_s() {return (this.td_max_us * 8) / 10 ** 6;},
