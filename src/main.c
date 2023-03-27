@@ -29,7 +29,11 @@ u8 i;
 
 void waitUntilKeyRelease();
 void waitUntilKeyRelease() {
-    watchdogPause(); while(isKeyPushed()); watchdogRun();
+    delayMs(100);
+    watchdogPause(); 
+    while(isKeyPushed()); 
+    watchdogRun();
+    delayMs(100);
 }
 
 int main() {
@@ -57,7 +61,6 @@ int main() {
         if (isKeyPushed()) {
             //Learning Preocess
             remoteDisable();
-            delayMs(100);
             waitUntilKeyRelease();
             remoteEnable();
             while (1)
@@ -77,7 +80,6 @@ int main() {
                         for (i=0;i<5;i++) {
                             ledBlink(1,300);
                             if (isKeyPushed()) {
-                                delayMs(100);
                                 waitUntilKeyRelease();
                                 result = remoteStoreRemove((u8*)remoteCode);
                                 if (result == 0 ) beepPlay(beepDeleteMelody,100);
@@ -94,7 +96,6 @@ int main() {
                     break;
                 }
                 if (isKeyPushed()) {
-                    delayMs(100); 
                     waitUntilKeyRelease();
                     beepPlay(beepCancelMelody,100);   
                     break;                
