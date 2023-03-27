@@ -25,6 +25,7 @@ u8 output;
 u8 result;
 u8 tmpCode[3],tmpType,buttons;
 u32 lightOffTimestamp;
+u32 learnTimeoutTimestamp;
 u8 i;
 
 void waitUntilKeyRelease();
@@ -63,6 +64,7 @@ int main() {
             remoteDisable();
             waitUntilKeyRelease();
             remoteEnable();
+            learnTimeoutTimestamp = timestamp + LEARN_TIMEOUT;
             while (1)
             {
                 if (isRemoteCodeReceived()) {
@@ -95,7 +97,7 @@ int main() {
                     remoteEnable();
                     break;
                 }
-                if (isKeyPushed()) {
+                if (isKeyPushed() || timestamp > learnTimeoutTimestamp) {
                     waitUntilKeyRelease();
                     beepPlay(beepCancelMelody,100);   
                     break;                

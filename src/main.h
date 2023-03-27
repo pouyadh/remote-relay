@@ -27,6 +27,8 @@
 #define LIGHT_GPIO_PIN GPIO_PIN_5
 #define LIGHT_PIN 5
 
+#define LEARN_TIMEOUT 10000
+
 
 #define pSet(port,pinNum) __BSET((u8 *)&GPIO##port->ODR,pinNum)
 #define pClr(port,pinNum) __BRES((u8 *)&GPIO##port->ODR,pinNum)
