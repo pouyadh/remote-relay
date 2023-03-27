@@ -4,7 +4,7 @@
 #include "stm8s.h"
 
 #define REMOTE_VERIFY_COUNT 1
-#define REMOTE_RELEASE_TIMEOUT 300
+#define REMOTE_RELEASE_TIMEOUT 1000
 
 #define REMOTE_STATUS_INIT ((u8)(1<<0))
 #define REMOTE_STATUS_EN ((u8)(1<<1))
