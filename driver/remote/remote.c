@@ -86,6 +86,19 @@ INTERRUPT_HANDLER(TIM2_CAP_COM_IRQHandler, 14) {
         tl = TIM2_GetCapture3();
         edge = 1;
     }
+    
+    if (TIM2->SR1 & TIM2_SR1_UIF) {
+        TIM2->SR1 &= ~TIM2_SR1_UIF;
+        ev1527.step = 0;
+        ht6p20.step = 0;
+        return;
+    }
+    if (th > 32767 || tl > 32767) {
+        ev1527.step = 0;
+        ht6p20.step = 0;
+        return;
+    }
+
     thl = th + tl;
     ev1527CycleHandler();
     ht6p20CycleHandler();
