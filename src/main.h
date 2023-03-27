@@ -38,6 +38,9 @@
 #define lightOn() __BRES((u8*)&LIGHT_GPIO->ODR,LIGHT_PIN)
 #define lightOff() __BSET((u8*)&LIGHT_GPIO->ODR,LIGHT_PIN)
 
+#define watchdogStart() IWDG->KR = 0xCC
+#define watchdogRefresh() IWDG->KR = 0xAA
+
 void updateRelays();
 
 

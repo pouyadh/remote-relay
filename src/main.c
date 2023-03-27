@@ -27,6 +27,11 @@ u8 tmpCode[3],tmpType,buttons;
 u32 lightOffTimestamp;
 u8 i;
 
+void waitUntilKeyRelease();
+void waitUntilKeyRelease() {
+    watchdogPause(); while(isKeyPushed()); watchdogRun();
+}
+
 int main() {
     
     init();
@@ -38,7 +43,7 @@ int main() {
         //Clear Memory
         remoteStoreErase();
         beepPlay(beepClearMemoryMelody,100);
-        while(isKeyPushed());
+        waitUntilKeyRelease();
     }
 
     beepPlay(beepStartupMelody,100);
@@ -48,11 +53,12 @@ int main() {
     
     
     while (1){
+        watchdogRefresh();
         if (isKeyPushed()) {
             //Learning Preocess
             remoteDisable();
             delayMs(100);
-            while(isKeyPushed());
+            waitUntilKeyRelease();
             remoteEnable();
             while (1)
             {
@@ -72,7 +78,7 @@ int main() {
                             ledBlink(1,300);
                             if (isKeyPushed()) {
                                 delayMs(100);
-                                while (isKeyPushed());
+                                waitUntilKeyRelease();
                                 result = remoteStoreRemove((u8*)remoteCode);
                                 if (result == 0 ) beepPlay(beepDeleteMelody,100);
                                 break;
@@ -89,7 +95,7 @@ int main() {
                 }
                 if (isKeyPushed()) {
                     delayMs(100); 
-                    while (isKeyPushed());
+                    waitUntilKeyRelease();
                     beepPlay(beepCancelMelody,100);   
                     break;                
                 }

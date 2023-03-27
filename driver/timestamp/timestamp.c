@@ -3,8 +3,9 @@
 #include "main.h"
 #include "stm8s_clk.h"
 #include "stm8s_tim4.h"
-
+#include "led.h"
 volatile u32 timestamp = 0;
+volatile u8 wd = 0;
 
 void timestampInit() {
     CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER4,ENABLE);
@@ -27,10 +28,13 @@ void timestampClear() {
 
 void delayMs(u32 ms) {
     ms += timestamp;
+    watchdogPause();
     while (timestamp < ms);
+    watchdogRun();
 }
 
 INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23) {
     __BRES((u8 *)&TIM4->SR1,0);
     timestamp++;
+    if (wd) watchdogRefresh();
 }

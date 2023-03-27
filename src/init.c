@@ -9,14 +9,21 @@
 
 void clkInit();
 void gpioInit();
+void watchdogInit();
 
 
 
 void init() {
     u8 retry,res;
     clkInit();
+
     timestampInit();
     timestampStart();
+
+    watchdogStart();
+    watchdogInit();
+    watchdogRefresh();
+    
     ledInit();
     serialInit();
 
@@ -58,4 +65,9 @@ void gpioInit() {
     GPIO_Init(RELAY3_GPIO,RELAY3_GPIO_PIN,GPIO_MODE_OUT_PP_LOW_FAST);
     GPIO_Init(RELAY4_GPIO,RELAY4_GPIO_PIN,GPIO_MODE_OUT_PP_LOW_FAST);
     GPIO_Init(LIGHT_GPIO,LIGHT_GPIO_PIN,GPIO_MODE_OUT_PP_HIGH_FAST);
+}
+
+void watchdogInit() {
+    IWDG->KR = 0x55; //Access
+    IWDG->PR |= 0x6; //Prescale 256
 }
