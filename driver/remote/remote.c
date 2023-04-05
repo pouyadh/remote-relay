@@ -8,6 +8,7 @@
 #include "string.h"
 #include "timestamp.h"
 #include "main.h"
+#include "store.h"
 
 typedef struct {
     u8 step;
@@ -21,13 +22,11 @@ typedef struct {
 } EV1527Tracker_t,HT6P20Tracker_t;
 
 
-
 EV1527Tracker_t ev1527;
 HT6P20Tracker_t ht6p20;
 
 u16 th=0,tl=0,thl=0;
 u8 edge=0,verifyCount=0;
-u32 remoteButtonRelaseTimestamp = 0;
 volatile u8 remoteStatus = 0;
 volatile u8 remoteCode[3] = {0,0,0};
 volatile RemoteType_t remoteType = REMOTE_TYPE_EV1527;
@@ -179,38 +178,7 @@ void ht6p20CycleHandler() {
 }
 
 void codeHandler(u8*code,RemoteType_t type) {
-    if (
-        remoteType != type || 
-        remoteCode[0] != code[0] ||
-        remoteCode[1] != code[1] ||
-        remoteCode[2] != code[2]
-    ) {
-        // New Code
-        verifyCount = 0;
-        remoteButtonRelaseTimestamp = 0;
-        remoteType = type;
-        remoteCode[0] = code[0];
-        remoteCode[1] = code[1];
-        remoteCode[2] = code[2];
-    } else {
-        // Same as last code
-        if (remoteButtonRelaseTimestamp) {
-            if (timestamp < remoteButtonRelaseTimestamp) {
-                remoteButtonRelaseTimestamp = timestamp + REMOTE_RELEASE_TIMEOUT;
-                return;
-            } else {
-                remoteButtonRelaseTimestamp = 0;
-                verifyCount = 0;
-            }
-        } else {
-            verifyCount++;
-        }
-    }
-
-    if (verifyCount < REMOTE_VERIFY_COUNT) return;
-
-    remoteButtonRelaseTimestamp = timestamp + REMOTE_RELEASE_TIMEOUT;
-    verifyCount = 0;
+    if (isRemoteCodeReceived()) return;
     remoteType = type;
     remoteCode[0] = code[0];
     remoteCode[1] = code[1];

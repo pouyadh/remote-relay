@@ -27,7 +27,15 @@
 #define LIGHT_GPIO_PIN GPIO_PIN_5
 #define LIGHT_PIN 5
 
+
+typedef enum {
+    BUTTON_MODE_LATCH = 0x00,
+    BUTTON_MODE_PUSHING = 0x01,
+    BUTTON_MODE_MOMENTARY = 0x02,
+} ButtonMode;
+
 #define LEARN_TIMEOUT 10000
+#define UNI_TIMEOUT 10000
 
 
 #define pSet(port,pinNum) __BSET((u8 *)&GPIO##port->ODR,pinNum)

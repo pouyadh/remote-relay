@@ -6,6 +6,6 @@
 #define serialSendChar(x) UART1_SendData8(x);
 
 void serialInit(void);
-void serialSend(u8 *data,u8 len);
+void serialSend(u8 *data,u16 len);
 
 #endif

@@ -12,7 +12,7 @@ void serialInit(void) {
     );
 }
 
-void serialSend(u8 *data, u8 len) {
+void serialSend(u8 *data, u16 len) {
     while (len--)
     {
         UART1_SendData8(*data);

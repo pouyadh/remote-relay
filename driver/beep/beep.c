@@ -1,7 +1,11 @@
 #include "beep.h"
 #include "timestamp.h"
 
-
+void beep(u16 hz) {
+    beepHz(hz);
+    delayMs(100);
+    beepOff();
+}
 void beepPlay(const u16 *melody,u16 interval) {
     u8 i = 0;
     for(i=0;i<4;i++) {

@@ -9,6 +9,7 @@
 #define REMOTE_STATUS_INIT ((u8)(1<<0))
 #define REMOTE_STATUS_EN ((u8)(1<<1))
 #define REMOTE_STATUS_CODE ((u8)(1<<2))
+#define REMOTE_STATUS_PUSHED ((u8)(1<<3))
 
 #define isRemoteCodeReceived() (remoteStatus & REMOTE_STATUS_CODE)
 #define remoteClearCodeFlag() (remoteStatus &= (u8)(~REMOTE_STATUS_CODE))

@@ -2,7 +2,7 @@
 #include "stm8s_clk.h"
 #include "timestamp.h"
 #include "remote.h"
-#include "remote-store.h"
+#include "store.h"
 #include "serial.h"
 #include "led.h"
 #include "main.h"
@@ -28,7 +28,7 @@ void init() {
     serialInit();
 
     retry = 3; 
-    do { res = remoteStoreInit(); } while (res && --retry);
+    do { res = storeInit(); } while (res && --retry);
 
     if (res) ledError(LED_CODE_EEPROM,TRUE);
     
