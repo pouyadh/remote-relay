@@ -163,7 +163,7 @@ int main() {
                         }
                     }
                 } else {
-                    lightOnReqTimestamp = timestamp + 500;
+                    lightOnReqTimestamp = timestamp + 1000;
                 }
 
                 remoteptr = tmpptr;
@@ -308,7 +308,7 @@ u8 getButtonNumber(u8 code[3]) {
     case 0x02:return 2;
     case 0x04:return 3;
     case 0x08:return 4;
-    case 0x0C:return 34;
+    //case 0x0C:return 34;
     default: return 0xFF;
     }
 }
