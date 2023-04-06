@@ -49,6 +49,7 @@ Menu menu = MENU_LEARN;
 
 u32 relayInverseTimestamp[4];
 u32 relaseTimestamp;
+u32 lightOnReqTimestamp;
 
 
 
@@ -141,20 +142,30 @@ int main() {
             if (tmpptr) {
                 if (tmpButtonNumber != lastButtonNumber) relaseTimestamp = 0;
                 lastButtonNumber = tmpButtonNumber;
-
-                buttonMode = getButtonMode(tmpptr , tmpButtonNumber);
-                if (buttonMode == BUTTON_MODE_LATCH) {
-                    if (timestamp > relaseTimestamp) relayInverse = tmpButtonNumber;
-                    relaseTimestamp = timestamp + relaseDelay;
-                    relayInverseTimestamp[tmpButtonNumber -1] = 0;
-                } else if (buttonMode == BUTTON_MODE_MOMENTARY) {
-                    if (relayInverseTimestamp[tmpButtonNumber -1] == 0) relayInverse = tmpButtonNumber;
-                    relayInverseTimestamp[tmpButtonNumber -1] = timestamp + store.momentaryDuration;
-                } else if (buttonMode == BUTTON_MODE_PUSHING) {
-                    if (relayInverseTimestamp[tmpButtonNumber -1] == 0) relayInverse = tmpButtonNumber;
-                    relayInverseTimestamp[tmpButtonNumber -1] = timestamp + 1000;
+                if (remoteptr != tmpptr) {
+                    relaseTimestamp = 0;
+                    lightOnReqTimestamp = 0;
                 }
-                
+
+                if (tmpButtonNumber != 0xFF) {
+                    if(timestamp > lightOnReqTimestamp) {
+                        buttonMode = getButtonMode(tmpptr , tmpButtonNumber);
+                        if (buttonMode == BUTTON_MODE_LATCH) {
+                            if (timestamp > relaseTimestamp) relayInverse = tmpButtonNumber;
+                            relaseTimestamp = timestamp + relaseDelay;
+                            relayInverseTimestamp[tmpButtonNumber -1] = 0;
+                        } else if (buttonMode == BUTTON_MODE_MOMENTARY) {
+                            if (relayInverseTimestamp[tmpButtonNumber -1] == 0) relayInverse = tmpButtonNumber;
+                            relayInverseTimestamp[tmpButtonNumber -1] = timestamp + store.momentaryDuration;
+                        } else if (buttonMode == BUTTON_MODE_PUSHING) {
+                            if (relayInverseTimestamp[tmpButtonNumber -1] == 0) relayInverse = tmpButtonNumber;
+                            relayInverseTimestamp[tmpButtonNumber -1] = timestamp + 1000;
+                        }
+                    }
+                } else {
+                    lightOnReqTimestamp = timestamp + 500;
+                }
+
                 remoteptr = tmpptr;
                 lightOn();
                 lightOffTimestamp = timestamp + store.lightOnDuration;
@@ -297,7 +308,7 @@ u8 getButtonNumber(u8 code[3]) {
     case 0x02:return 2;
     case 0x04:return 3;
     case 0x08:return 4;
-    //case 0x0C:return 34;
+    case 0x0C:return 34;
     default: return 0xFF;
     }
 }
