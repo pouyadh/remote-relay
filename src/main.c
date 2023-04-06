@@ -47,7 +47,7 @@ typedef enum {
 
 Menu menu = MENU_LEARN;
 
-u32 relayInverseTimestamp[4];
+u32 relayInverseTimestamp[1];
 u32 relaseTimestamp;
 
 
@@ -136,7 +136,7 @@ int main() {
         }
         if(isRemoteCodeReceived()) {
             tmpptr = storeGet((u8*)remoteCode);
-            tmpButtonNumber = getButtonNumber((u8*)remoteCode);
+            tmpButtonNumber = 1;
 
             if (tmpptr) {
                 if (tmpButtonNumber != lastButtonNumber) relaseTimestamp = 0;
@@ -175,7 +175,7 @@ int main() {
 
 void updateRelays() {
     if (relayInverse == 0) {
-        for(i=0;i<=3;i++) {
+        for(i=0;i<=0;i++) {
         if (relayInverseTimestamp[i] && timestamp > relayInverseTimestamp[i]) {
             relayInverse = i+1;
             relayInverseTimestamp[i] = 0;
@@ -184,9 +184,6 @@ void updateRelays() {
     }
     }
     if (relayInverse == 1) GPIO_WriteReverse(RELAY1_GPIO,RELAY1_GPIO_PIN);
-    if (relayInverse == 2) GPIO_WriteReverse(RELAY2_GPIO,RELAY2_GPIO_PIN);
-    if (relayInverse == 3) GPIO_WriteReverse(RELAY3_GPIO,RELAY3_GPIO_PIN);
-    if (relayInverse == 4) GPIO_WriteReverse(RELAY4_GPIO,RELAY4_GPIO_PIN);
     relayInverse = 0;
 }
 
@@ -263,7 +260,7 @@ void setMode(u8 mode) {
     }
     remoteptr = storeGet((u8*)remoteCode);
     if (remoteptr == 0)  goto again;
-    tmpButtonNumber = getButtonNumber((u8*)remoteCode);
+    tmpButtonNumber = 1;
     switch (tmpButtonNumber) {
     case 1:
         remoteptr[3] &= 0xFC;

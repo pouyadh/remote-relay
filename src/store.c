@@ -12,7 +12,7 @@ u8 storeInit() {
 }
 
 u8 storeAdd(u8 code[3]) {
-    u8 code2 = code[2] & 0xF0;
+    u8 code2 = code[2];
     u8 *rptr;
     u8 *empty_rptr = 0;
     for(rptr=store.codes;rptr<=&store.codes[REMOTE_STORE_SIZE*4 - 1];rptr+=4) {
@@ -40,7 +40,7 @@ u8 storeAdd(u8 code[3]) {
 }
 
 u8 storeRemove(u8 code[3]) {
-    u8 code2 = code[2] & 0xF0;
+    u8 code2 = code[2];
     u8 *rptr;
     for(rptr=store.codes;rptr<=&store.codes[REMOTE_STORE_SIZE*4 - 1];rptr+=4) {
         if (
@@ -70,7 +70,7 @@ u8 storeErase() {
 }
 
 bool storeHas(u8 code[3]) {
-    u8 code2 = code[2] & 0xF0;
+    u8 code2 = code[2];
     u8 *rptr;
     for(rptr=store.codes;rptr<=&store.codes[REMOTE_STORE_SIZE*4 - 1];rptr+=4) {
         if (
@@ -83,7 +83,7 @@ bool storeHas(u8 code[3]) {
 }
 
 u8* storeGet(u8 code[3]) {
-    u8 code2 = code[2] & 0xF0;
+    u8 code2 = code[2];
     u8 *rptr;
     for(rptr=store.codes;rptr<=&store.codes[REMOTE_STORE_SIZE*4 - 1];rptr+=4) {
         if (
