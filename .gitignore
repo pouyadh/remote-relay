@@ -15,4 +15,4 @@
 *.eide-template
 
 #IAR Debug
-/_IAR/Debug
+/_IAR/Debug/*
