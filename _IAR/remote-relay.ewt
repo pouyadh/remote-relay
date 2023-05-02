@@ -2344,6 +2344,9 @@
                 <name>$PROJ_DIR$\..\STD\src\stm8s_clk.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\STD\src\stm8s_exti.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\STD\src\stm8s_gpio.c</name>
             </file>
             <file>
