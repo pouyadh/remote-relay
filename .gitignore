@@ -16,3 +16,5 @@
 
 #IAR Debug
 /_IAR/Debug/*
+
+/assets/local
